@@ -20,9 +20,6 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
 
-      - name: Enter folder project
-        run: cd exam
-
       - name: Install dependencies
         run: mvn install -DskipTests
 
