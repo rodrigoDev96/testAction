@@ -1,0 +1,21 @@
+name: ct-demo
+version: 1.0.0
+description: ct-demo
+type: configuration
+labels:
+  label: label
+documentation: /community/docs/latest/develop/component/FOO
+visible: false
+catalog:
+  enabled: false
+sast: false
+sca: false
+sonar_profile: NONE
+contact:
+  full_name: Lavinya C e Silva
+  email: lavinya.silva@f1rst.com.br
+scope:
+  - component
+repository_template: santander-group-gluon-dev/sny-process-ctdemo
+internal_configuration:
+  configuration:

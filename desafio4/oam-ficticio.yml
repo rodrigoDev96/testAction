@@ -1,0 +1,113 @@
+kind: application
+version: v1
+metadata:
+  name: tbr-dvp-oamdvpbrazil
+  version: 1.0.13
+environments:
+
+  - name: cert-mbb
+    type: certification
+    infrastructures:
+   
+      - id: CI00000000001
+        type: KUBERNETES
+        properties:
+          type: KUBERNETES
+          apiServer: https://api.dev.paas.santanderbr.dev.corp:6443
+          namespace: mbb-ms-dev
+          credentialsId: 'OPENSHIFT_DEPLOY_TOKEN_DEV'
+          artifact-store: CI00000000010
+      
+      - id: CI00000000002
+        type: KUBERNETES
+        properties:
+          apiServer: https://sbrd1zb1aksaksbrscrit001-010928ed.hcp.brazilsouth.azmk8s.io:443
+          namespace: mbb-dev
+          credentialUserId: 'AZURE_CLIENT_ID_DEV'
+          credentialPassId: 'AZURE_CLIENT_SECRET_DEV'
+          tenant: 1234
+          account: 1234
+          resourceGroup: sbrd1234
+          clusterName: sbrd1234
+          provider: aks
+          artifact-store: CI00000000012
+      
+      - id: CI00000000043
+        type: KUBERNETES
+        properties:
+          type: KUBERNETES
+          apiServer: https://api.dev.paas.santanderbr.dev.corp:6443
+          namespace: mbb-ms-dev
+          credentialsId: 'OPENSHIFT_DEPLOY_TOKEN_DEV'
+          artifact-store: CI00000000011
+           
+      - id: CI00000000010
+        type: ARTIFACT-STORE
+        properties:
+          type: OPENSHIFT_REGISTRY
+          registry: image-registry.openshift-image-registry.svc:5000
+          internal-registry: registry.dev.paas.santanderbr.dev.corp
+          project-path: mbb-dev
+          usernameId: 'OC_REGISTRY_USER_DEV'
+          passwordId: 'OC_REGISTRY_PASS_DEV'
+          snapshots: true
+      
+      - id: CI00000000011
+        type: ARTIFACT-STORE
+        properties:
+          type: artifactory
+          registry: artifactory.santanderbr.corp
+          project-path: mbb-images-dev
+          usernameId: 'ARTIFACTORY_USERNAME_DEV'
+          passwordId: 'ARTIFACTORY_PASSWORD_DEV'
+          snapshots: true
+
+  - name: pre-mbb
+    type: preproduction
+    infrastructures:
+    
+      - id: CI00000000100
+        type: KUBERNETES
+        properties:
+          type: KUBERNETES
+          apiServer: https://api.pre.paas.santanderbr.pre.corp:6443
+          namespace: mbb-pre
+          credentialsId: 'OPENSHIFT_DEPLOY_TOKEN_PRE'
+          artifact-store: CI00000000111
+      
+      - id: CI00000000111
+        type: ARTIFACT-STORE
+        properties:
+          type: artifactory
+          registry: artifactory.santanderbr.corp
+          project-path: docker-release/mbb
+          usernameId: 'ARTIFACTORY_USERNAME_PRO'
+          passwordId: 'ARTIFACTORY_PASSWORD_PRO'
+    
+  - name: pro-mbb
+    type: production
+    infrastructures:
+
+      - id: CI00000000200
+        type: KUBERNETES
+        properties:
+          type: KUBERNETES
+          apiServer: https://api.pre.paas.santanderbr.pre.corp:6443
+          namespace: mbb-pro
+          credentialsId: 'OPENSHIFT_DEPLOY_TOKEN_PRO'
+          artifact-store: CI00000000211
+
+    
+      - id: CI00000000201
+        type: KUBERNETES
+        properties:
+          apiServer: https://sbrp1zb1aksaksbrscrit001-b06ed9e6.7b021088-1682-4451-8717-aa7418f190e1.privatelink.brazilsouth.azmk8s.io:443
+          namespace: dvp-pro
+          credentialUserId: 'AZURE_CLIENT_ID_PRO'
+          credentialPassId: 'AZURE_CLIENT_SECRET_PRO'
+          tenant: 1234
+          account: 1234
+          resourceGroup: sbrp1234
+          clusterName: sbrp1234
+          provider: aks
+          artifact-store: CI00000000212
