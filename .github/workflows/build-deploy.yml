@@ -40,7 +40,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.TKS }}
         with:
-          tag_name: tag
+          tag_name: tag2
           release_name: Release 1
           draft: false
           prerelease: false
